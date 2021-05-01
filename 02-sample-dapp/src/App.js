@@ -1,33 +1,23 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react'
 import './App.css';
-import Counter from './components/Counter';
-import { getDeployed } from './contracts/Counter';
-import { hasProvider } from './eth/network';
+import {getWeb3, getAccount} from './eth/network'
 
-class App extends Component {
-  state = {
-    counter: null
+const App = () => {
+
+  const [ address, setAddress ] = useState(null)
+
+  const onConnectWalletPress = async () => {
+    const account = await getAccount()
+    setAddress(account)
   }
 
-  async componentDidMount() {
-    if (hasProvider()) {
-      const counter = await getDeployed();
-      this.setState({ counter });
-    }
-  }
-
-  render() {
-    const { counter } = this.state;
-
-    return (
-      <div className="App">
-        { (hasProvider() && counter) 
-          ? <Counter contract={counter} />
-          : <div>Please enable Metamask and reload</div>
-        }
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <h1>COUNTER</h1>
+      <h2>wallet address: {address}</h2>
+      <button onClick={onConnectWalletPress}>Connect Wallet</button>
+    </div>
+  );
 }
 
 export default App;
