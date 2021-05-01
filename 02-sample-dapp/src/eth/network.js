@@ -15,7 +15,13 @@ const getAccount = async () =>{
   return accounts[0]
 }
 
-export {getWeb3, getAccount}
+const getBalance = async (address) =>{
+  const web3 = getWeb3();
+  const balance = await web3.eth.getBalance(address)
+  return balance
+}
+
+export {getWeb3, getAccount, getBalance}
 
 /*
 const Counter = ( web3, address, options = {} ) => {
