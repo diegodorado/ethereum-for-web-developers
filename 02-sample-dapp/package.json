@@ -1,41 +1,39 @@
 {
-  "name": "sample-dapp",
+  "name": "counter-dapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://spalladino.github.io/sample-dapp/",
-  "author": {
-    "name": "Santiago Palladino",
-    "email": "spalladino@gmail.com"
-  },
   "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1",
-    "web3": "^1.0.0-beta.37"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1",
+    "web3": "^1.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "./scripts/test.sh",
-    "eject": "react-scripts eject",
-    "compile": "./scripts/compile.sh",
-    "deploy": "node ./scripts/deploy.js",
-    "publish": "gh-pages -d build"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0",
-    "ganache-cli": "^6.2.3",
-    "gh-pages": "^2.0.1"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
