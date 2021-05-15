@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import './App.css';
 import {getDeployedContract, getAccount, requestAccount} from './eth/network'
 
-const CONTRACT_ADDRESS = '0x1D2561D18dD2fc204CcC8831026d28375065ed53'
 const Counter = ({account}) => {
 
   const [contract, setContract ] = useState(null)
@@ -10,9 +9,15 @@ const Counter = ({account}) => {
 
   const fetchContractAsync = async () => {
     const contract = await getDeployedContract(account)
-    setContract(contract)
+    // query initial value
     const value = await contract.methods.value().call()
     setValue(value)
+    // subscribe to Increased event
+    contract.events.Increased().on('data', event => {
+      const value = event.returnValues.newValue
+      setValue(value)
+    })
+    setContract(contract)
   }
 
   useEffect( () => {
@@ -28,7 +33,7 @@ const Counter = ({account}) => {
             <h2>Connected!</h2>
             <h2>Wallet Address: {account}</h2>
             <h2>Contract value: {value ? value : 'Loading...'}</h2>
-            <button onClick={onButtonClick}>Increase</button>
+            { contract && <button onClick={onButtonClick}>Increase</button>}
           </>
   )
 }
